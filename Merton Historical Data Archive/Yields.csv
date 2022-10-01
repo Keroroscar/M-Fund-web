@@ -1,4 +1,4 @@
-date,annualized_nav_yield,annualized_total_yield,annualized_capital_gain,annualized_distribution_rate
+date,value,value2,value3,value4
 2013-11-01,,,8.21,5.89
 2013-12-01,14.54,25.59,8.21,5.82
 2014-01-01,14.47,25.52,8.21,5.75
