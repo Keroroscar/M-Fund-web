@@ -24,11 +24,11 @@
             "translate(" + margin.left + "," + margin.top + ")");
   
   //Read the data
-  d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Historical%20Data%20Archive/Test2.csv",
+  d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Historical%20Data%20Archive/Index.csv",
   
     // When reading the csv, I must format variables:
     function(d){
-      return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.value }
+      return { date : d3.timeParse("%Y-%m-%d")(d.date), value2 : d.value2 }
     },
   
     // Now I can use this dataset:
@@ -42,12 +42,12 @@
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
   
-      // Max value observed:
-      const max = d3.max(data, function(d) { return +d.value; })
+      // Max value2 observed:
+      const max = d3.max(data, function(d) { return +d.value2; })
   
       // Add Y axis
       var y = d3.scaleLinear()
-        .domain([-50, 50])
+        .domain([100000, max])
         .range([ height, 0 ]);
       svg.append("g")
         .call(d3.axisLeft(y));
@@ -77,7 +77,7 @@
         .attr("stroke-width", 2)
         .attr("d", d3.line()
           .x(function(d) { return x(d.date) })
-          .y(function(d) { return y(d.value) })
+          .y(function(d) { return y(d.value2) })
           )
   
   })
