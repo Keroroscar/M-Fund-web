@@ -9,7 +9,7 @@ var svg = d3.select("svg"),
   height = +svg.attr("height") - margin.top - margin.bottom,
   g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var parseDate = d3.timeParse("%Y-%m-%d");
+var parseDate = d3.timeParse("%m/%d/%Y");
 
 var color = d3.scaleOrdinal()
   .domain(["value", "value2"])
