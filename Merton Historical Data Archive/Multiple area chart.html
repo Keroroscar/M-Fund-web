@@ -12,8 +12,8 @@ var svg = d3.select("svg"),
 var parseDate = d3.timeParse("%m/%d/%Y");
 
 var color = d3.scaleOrdinal()
-  .domain(["value", "value2", "test"])
-  .range(["rgba(249, 208, 87, 0.7)", "rgba(54, 174, 175, 0.65)"]);
+  .domain(["Merton", "FTSE", "SP500"])
+  .range(["rgba(172, 153, 163, 0.8)", "rgba(249, 208, 87, 0.7)", "rgba(54, 174, 175, 0.65)"]);
 
 var x = d3.scaleTime().range([0, width]),
   y = d3.scaleLinear().range([height, 0]),
@@ -41,7 +41,7 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([
-    0,
+    90000,
     d3.max(sources, function(c) { return d3.max(c.values, function(d) { return d.kW; }); })
   ]);
   z.domain(sources.map(function(c) { return c.id; }));
