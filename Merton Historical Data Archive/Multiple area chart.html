@@ -25,7 +25,7 @@ var area = d3.area()
   .y0(y(0))
   .y1(function(d) { return y(d.kW); });
 
-d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Historical%20Data%20Archive/Index.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Historical%20Data%20Archive/Index_5Yr_inc_nareit.csv", type, function(error, data) {
   if (error) throw error;
 
   var sources = data.columns.slice(1).map(function(id) {
