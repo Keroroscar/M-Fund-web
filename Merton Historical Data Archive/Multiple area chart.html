@@ -13,7 +13,7 @@ var parseDate = d3.timeParse("%m/%d/%Y");
 
 var color = d3.scaleOrdinal()
   .domain(["Merton", "FTSE", "SP500", "MSCI"])
-  .range(["rgba(172, 153, 163, 0.8)", "rgba(249, 208, 87, 0.7)", "rgba(54, 174, 175, 0.65)"]);
+  .range(["rgba(172, 153, 163, 0.8)", "rgba(249, 208, 87, 0.7)", "rgba(54, 174, 175, 0.65)", "rgba(128, 174, 175, 0.65)"]);
 
 var x = d3.scaleTime().range([0, width]),
   y = d3.scaleLinear().range([height, 0]),
@@ -60,6 +60,16 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
       .attr("dy", "0.71em")
       .attr("fill", "#000")
       .text("Growth of 100k, £");
+
+  g.append("circle").attr("cx",100).attr("cy",30).attr("r", 6).style("fill", "#fb8b24")
+  g.append("circle").attr("cx",100).attr("cy",60).attr("r", 6).style("fill", "rgba(249, 208, 87, 0.7)")
+  g.append("circle").attr("cx",100).attr("cy",90).attr("r", 6).style("fill", "rgba(54, 174, 175, 0.65)")
+  g.append("circle").attr("cx",100).attr("cy",120).attr("r", 6).style("fill", "rgba(128, 174, 175, 0.65)")
+  g.append("text").attr("x", 120).attr("y", 30).text("variable A").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 120).attr("y", 60).text("variable B").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 120).attr("y", 90).text("variable C").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 120).attr("y", 120).text("variable D").style("font-size", "15px").attr("alignment-baseline","middle")
+
 
   var source = g.selectAll(".area")
       .data(sources)
