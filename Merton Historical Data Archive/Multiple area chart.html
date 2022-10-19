@@ -18,7 +18,7 @@ var color = d3.scaleOrdinal()
   // .range(["rgba(241, 220, 167, 1)", "rgba(217, 174, 148, 0.9)", "rgba(255, 203, 105, 0.8)", "rgba(232, 172, 101, 0.7)", "rgba(181, 132, 99, 0.6)", "rgba(186, 165, 135, 0.5)"]);
   // .range(["rgba(255, 210, 63, 1)", "rgba(59, 206, 172, 0.8)", "rgba(14, 173, 105, .7)", "rgba(238, 66, 102, .6)", "rgba(55, 113, 142, .5)", "rgba(68, 65, 64, 0.3)"]);
   // .range(["#22a7f040", "#48b5c90", "#76c68f80", "#a6d75b70", "#c9e52f60", "#d0ee1150"]);.range(["rgba(172, 153, 163, 0.7)", "rgba(249, 208, 87, 0.8)", "rgba(54, 174, 175, 0.65)", "rgba(128, 174, 175, 0.55)"]);
-  .range(["rgba(172, 153, 163, 0.7)", "rgba(249, 208, 87, 0.8)", "rgba(54, 174, 175, 0.65)", "rgba(128, 174, 175, 0.55)"]);
+  .range(["rgba(249, 208, 87, 0.4)", "rgba(54, 174, 175, 1)", "rgba(128, 174, 175, 0.6)","rgba(172, 153, 163, 0.2)", "rgba(0, 19, 0, 0.21)", "rgba(245, 40,37,0.2)"]);
   
   
 
@@ -48,7 +48,7 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([
-    75000,
+    50000,
     d3.max(sources, function(c) { return d3.max(c.values, function(d) { return d.kW; }); })
   ]);
   z.domain(sources.map(function(c) { return c.id; }));
@@ -69,20 +69,21 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
       .text("Growth of 100k, £");
 
 
-
+  // .range(["rgba(249, 208, 87, 0.4)", "rgba(54, 174, 175, 1)", "rgba(128, 174, 175, 0.6)","rgba(172, 153, 163, 0.2)", "rgba(0, 19, 0, 0.21)", "rgba(245, 40,37,0.2)"]);
+  //1. Merton 2. FTSE100 3.
       // "#ebac23", "#b80058", "#008cf9", "#00bbad", "#00a76c", "#878500"
-  g.append("circle").attr("cx",100).attr("cy",30).attr("r", 6).style("fill", "#ebac23")
-  g.append("circle").attr("cx",100).attr("cy",60).attr("r", 6).style("fill", "b80058")
-  g.append("circle").attr("cx",100).attr("cy",90).attr("r", 6).style("fill", "#008cf9")
+  g.append("circle").attr("cx",100).attr("cy",30).attr("r", 6).style("fill", "rgba(249, 208, 87, 0.4)")
+  g.append("circle").attr("cx",100).attr("cy",60).attr("r", 6).style("fill", "rgba(54, 174, 175, 1)")
+  g.append("circle").attr("cx",100).attr("cy",90).attr("r", 6).style("fill", "rgba(245, 40,37,0.2)")
   g.append("circle").attr("cx",100).attr("cy",120).attr("r", 6).style("fill", "#00bbad")
-  g.append("circle").attr("cx",100).attr("cy",150).attr("r", 6).style("fill", "#00a76c")
-  g.append("circle").attr("cx",100).attr("cy",180).attr("r", 6).style("fill", "#878500")
+  g.append("circle").attr("cx",100).attr("cy",150).attr("r", 6).style("fill", "")
+  g.append("circle").attr("cx",100).attr("cy",180).attr("r", 6).style("fill", "rgba(54, 174, 175, 1)")
   g.append("text").attr("x", 120).attr("y", 30).text("Merton").style("font-size", "15px").attr("alignment-baseline","middle")
-  g.append("text").attr("x", 120).attr("y", 60).text("FTSE 100").style("font-size", "15px").attr("alignment-baseline","middle")
-  g.append("text").attr("x", 120).attr("y", 90).text("S&P 500").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 120).attr("y", 60).text("S&P 500").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 120).attr("y", 90).text("UK Home Price Index").style("font-size", "15px").attr("alignment-baseline","middle")
   g.append("text").attr("x", 120).attr("y", 120).text("MSCI World").style("font-size", "15px").attr("alignment-baseline","middle")
   g.append("text").attr("x", 120).attr("y", 150).text("Nareit ALL REITS").style("font-size", "15px").attr("alignment-baseline","middle")
-  g.append("text").attr("x", 120).attr("y", 180).text("UK Home Price Index").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 120).attr("y", 180).text("FTSE 100").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
 
