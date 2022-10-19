@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<svg width="1440" height="750"></svg>
+<svg width="960" height="500"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+
+<!-- line plot package -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
 <script>
 
 var svg = d3.select("svg"),
@@ -17,9 +21,7 @@ var color = d3.scaleOrdinal()
   // .range(["#ebac2370", "#b8005860", "#008cf950", "#00bbad40", "#00a76c30", "#87850020"]);
   // .range(["rgba(241, 220, 167, 1)", "rgba(217, 174, 148, 0.9)", "rgba(255, 203, 105, 0.8)", "rgba(232, 172, 101, 0.7)", "rgba(181, 132, 99, 0.6)", "rgba(186, 165, 135, 0.5)"]);
   // .range(["rgba(255, 210, 63, 1)", "rgba(59, 206, 172, 0.8)", "rgba(14, 173, 105, .7)", "rgba(238, 66, 102, .6)", "rgba(55, 113, 142, .5)", "rgba(68, 65, 64, 0.3)"]);
-  // .range(["#22a7f040", "#48b5c90", "#76c68f80", "#a6d75b70", "#c9e52f60", "#d0ee1150"]);.range(["rgba(172, 153, 163, 0.7)", "rgba(249, 208, 87, 0.8)", "rgba(54, 174, 175, 0.65)", "rgba(128, 174, 175, 0.55)"]);
-  .range(["rgba(172, 153, 163, 0.7)", "rgba(249, 208, 87, 0.8)", "rgba(54, 174, 175, 0.65)", "rgba(128, 174, 175, 0.55)"]);
-  
+  .range(["#22a7f040", "#48b5c90", "#76c68f80", "#a6d75b70", "#c9e52f60", "#d0ee1150"]);
   
 
 var x = d3.scaleTime().range([0, width]),
@@ -48,7 +50,7 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([
-    50000,
+    80000,
     d3.max(sources, function(c) { return d3.max(c.values, function(d) { return d.kW; }); })
   ]);
   z.domain(sources.map(function(c) { return c.id; }));
@@ -71,13 +73,13 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
 
 
       // "#ebac23", "#b80058", "#008cf9", "#00bbad", "#00a76c", "#878500"
-  g.append("circle").attr("cx",100).attr("cy",30).attr("r", 6).style("fill", "#ebac23")
+  g.append("circle").attr("cx",880).attr("cy",30).attr("r", 6).style("fill", "#ebac23")
   g.append("circle").attr("cx",100).attr("cy",60).attr("r", 6).style("fill", "b80058")
   g.append("circle").attr("cx",100).attr("cy",90).attr("r", 6).style("fill", "#008cf9")
   g.append("circle").attr("cx",100).attr("cy",120).attr("r", 6).style("fill", "#00bbad")
   g.append("circle").attr("cx",100).attr("cy",150).attr("r", 6).style("fill", "#00a76c")
   g.append("circle").attr("cx",100).attr("cy",180).attr("r", 6).style("fill", "#878500")
-  g.append("text").attr("x", 120).attr("y", 30).text("Merton").style("font-size", "15px").attr("alignment-baseline","middle")
+  g.append("text").attr("x", 900).attr("y", 30).text("Merton").style("font-size", "15px").attr("alignment-baseline","middle")
   g.append("text").attr("x", 120).attr("y", 60).text("FTSE 100").style("font-size", "15px").attr("alignment-baseline","middle")
   g.append("text").attr("x", 120).attr("y", 90).text("S&P 500").style("font-size", "15px").attr("alignment-baseline","middle")
   g.append("text").attr("x", 120).attr("y", 120).text("MSCI World").style("font-size", "15px").attr("alignment-baseline","middle")
@@ -85,15 +87,42 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
   g.append("text").attr("x", 120).attr("y", 180).text("UK Home Price Index").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
+//   var source = g.selectAll(".area")
+//       .data(sources)
+//       .enter().append("g")
+//       .attr("class", function(d) { return `area ${d.id}`; })
 
-  var source = g.selectAll(".area")
-      .data(sources)
-      .enter().append("g")
-      .attr("class", function(d) { return `area ${d.id}`; })
+//   source.append("path")
+//        .attr("d", function(d) { console.log(area(d.values)); return area(d.values); })
+//        .style("fill", function(d) { return z(d.id); });
 
-  source.append("path")
-       .attr("d", function(d) { console.log(area(d.values)); return area(d.values); })
-       .style("fill", function(d) { return z(d.id); });
+
+    // Set the gradient
+    g.append("linearGradient")
+            .attr("id", "line-gradient")
+            .attr("gradientUnits", "userSpaceOnUse")
+            .attr("x1", 0)
+            .attr("y1", y(0))
+            .attr("x2", 0)
+            .attr("y2", y(max))
+            .selectAll("stop")
+            .data([
+                {offset: "0%", color: "blue"},
+                {offset: "100%", color: "red"}
+            ])
+            .enter().append("stop")
+            .attr("offset", function(d) { return d.offset; })
+            .attr("stop-color", function(d) { return d.color; });
+    // Add the line
+    g.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "url(#line-gradient)" )
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+            .x(function(d) { return x(d.date) })
+            .y(function(d) { return y(d.values) })
+            )
 });
 
 function type(d, _, columns) {
@@ -102,24 +131,6 @@ function type(d, _, columns) {
   return d;
 }
 
-
-  // // Add the line
-  // source.append("path")
-  //       .datum(data)
-  //       .attr("fill", "none")
-  //       .attr("stroke", "url(#line-gradient)" )
-  //       .attr("stroke-width", 2)
-  //       .attr("d", d3.line()
-  //         .x(function(d) { return x(d.date) })
-  //         .y(function(d) { return y(d.values) })
-  //         )
-
-
-
     </script>
   </body>
   </html>
-
-
-
-

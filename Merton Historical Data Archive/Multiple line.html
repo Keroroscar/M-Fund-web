@@ -28,11 +28,12 @@
   
     // group the data: I want to draw one line per group
     var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
-      .key(function(d) { return d.name;})
+      .key(function(d) { return d.Attribute;})
       .entries(data);
   
     // Add X axis --> it is a date format
-    var x = d3.scaleLinear()
+    var parseDate = d3.timeParse("%m/%d/%Y");
+    var x = d3.scaleTime()
       .domain(d3.extent(data, function(d) { return d.date; }))
       .range([ 0, width ]);
     svg.append("g")
@@ -67,6 +68,15 @@
               (d.values)
           })
   
-  })
+  });
+
+  function type(d, _, columns) {
+  d.date = parseDate(d.date);
+  for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
+  return d;
+}
+
   
   </script>
+
+  
