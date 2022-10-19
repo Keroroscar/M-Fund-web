@@ -48,7 +48,7 @@ d3.csv("https://raw.githubusercontent.com/Keroroscar/M-Fund-web/main/Merton%20Hi
 
   x.domain(d3.extent(data, function(d) { return d.date; }));
   y.domain([
-    50000,
+    75000,
     d3.max(sources, function(c) { return d3.max(c.values, function(d) { return d.kW; }); })
   ]);
   z.domain(sources.map(function(c) { return c.id; }));
